@@ -3,10 +3,10 @@
 #include <stdio.h>
 
 /**
- * main- positive, negetive or zero
- *
- * Return: Always 0 (Success)
- */
+* main- positive, negetive or zero
+*
+* Return: Always 0 (Success)
+*/
 
 int main(void)
 {
