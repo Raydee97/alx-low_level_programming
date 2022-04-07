@@ -1,52 +1,43 @@
 #include "main.h"
-#include <stdio.h>
 #include <stdlib.h>
+
 /**
-* _strlen - Swaps integers wih pointers.
-*
-* @s: is a pointer to a char
-*
-* Return: Always 0.
-*/
-int _strlen(char *s)
-{
-int i = 0;
-while (*(s + i) != '\0')
-i++;
-return (i);
-}
-/**
-* str_concat - Concatenates 2 strings..
-*
-* @s1: First string.
-* @s2: Second string.
-*
-* Return: Returns the created array.
-**/
+ * str_concat - concatenates two strings.
+ * @s1: first string.
+ * @s2: second string.
+ *
+ * Return: pointer of an array of chars
+ */
 char *str_concat(char *s1, char *s2)
 {
-int i, j, size1, size2, totSize;
-char *ar;
-if (s1 == NULL)
-s1 = "";
-if (s2 == NULL)
-s2 = "";
-size1 = _strlen(s1);
-size2 = _strlen(s2);
-totSize = (size1 + size2)+1;
-ar = malloc(totSize *sizeof(char));
-if (ar == NULL)
-return (NULL);
-else
-{
-for (i = 0; i < size1; i++)
-ar[i] = s1[i];
-for (j = 0; j < size2; j++)
-{
-ar[i] = s2[j];
-i++;
-}
-ar[i + 1] = '\0';
-return (ar);
-}
+	char *strout;
+	unsigned int i, j, k, limit;
+
+	if (s1 == NULL)
+		s1 = "";
+	if (s2 == NULL)
+		s2 = "";
+
+	for (i = 0; s1[i] != '\0'; i++)
+		;
+
+	for (j = 0; s2[j] != '\0'; j++)
+		;
+
+	strout = malloc(sizeof(char) * (i + j + 1));
+
+	if (strout == NULL)
+	{
+		free(strout);
+		return (NULL);
+	}
+
+	for (k = 0; k < i; k++)
+		strout[k] = s1[k];
+
+	limit = j;
+	for (j = 0; j <= limit; k++, j++)
+		strout[k] = s2[j];
+
+	return (strout);
 }
