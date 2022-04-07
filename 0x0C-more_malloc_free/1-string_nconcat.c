@@ -2,44 +2,61 @@
 #include "main.h"
 
 /**
- * *string_nconcat - concatenates n bytes of a string to another string
- * @s1: string to append to
- * @s2: string to concatenate from
- * @n: number of bytes from s2 to concatenate to s1
- *
- * Return: pointer to the resulting string
+ * str_lent - gets the string length
+ * @s: pointer to the string
+ * Return: k
  */
+int str_lent(char *s)
+{
+	/*declare variables to be used*/
+	int k = 0;
+
+	while (s[k] != '\0')
+		k++;
+	return (k);
+}
+/**
+ * string_nconcat - concatenates two strings
+ * @s1: pointer to first string
+ * @s2: pointer to second string
+ * @n: unsigned int
+ * Return: ptr
+ */
+
 char *string_nconcat(char *s1, char *s2, unsigned int n)
 {
-	char *s;
-	unsigned int i = 0, j = 0, len1 = 0, len2 = 0;
+	/*declare pointer and variables to be used*/
+	unsigned int i, j, len1, len2, tot_len, comp;
+	char *ptr;
 
-	while (s1 && s1[len1])
-		len1++;
-	while (s2 && s2[len2])
-		len2++;
-
-	if (n < len2)
-		s = malloc(sizeof(char) * (len1 + n + 1));
-	else
-		s = malloc(sizeof(char) * (len1 + len2 + 1));
-
-	if (!s)
+	if (s1 == NULL)
+		s1 = "";
+	if (s2 == NULL)
+		s2 = "";
+	/*we need length of the two strings*/
+	len1 = str_lent(s1);
+	len2 = str_lent(s2);
+	if (n >= len2)
+		len2 = n;
+	tot_len = len1 + n;/*adding the length of 1st string and n given above*/
+	ptr = (char *)malloc(sizeof(char) * tot_len + 1);
+	if (ptr == NULL)
 		return (NULL);
-
-	while (i < len1)
+	/*loop to add two strings to the memory*/
+	for (comp = i = j = 0; comp < tot_len; comp++)
 	{
-		s[i] = s1[i];
-		i++;
+		/*check if first string is done copying*/
+		if (i < len1)
+		{
+			ptr[comp] = s1[i];
+			i++;
+		}
+		else
+		{
+			ptr[comp] = s2[j];/*starts copying 2nd string*/
+			j++;
+		}
 	}
-
-	while (n < len2 && i < (len1 + n))
-		s[i++] = s2[j++];
-
-	while (n >= len2 && i < (len1 + len2))
-		s[i++] = s2[j++];
-
-	s[i] = '\0';
-
-	return (s);
+	ptr[comp] = '\0';
+	return (ptr);
 }
